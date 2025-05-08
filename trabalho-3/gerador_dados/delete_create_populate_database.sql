@@ -35,7 +35,7 @@ CREATE TABLE Usuario (
     id_localizacao INT NOT NULL,
     nome VARCHAR(20) NOT NULL CHECK (char_length(nome) BETWEEN 2 AND 20),
     sobrenome VARCHAR(80) NOT NULL CHECK (char_length(sobrenome) BETWEEN 2 AND 80),
-    tipo CHAR NOT NULL CHECK (tipo IN ('Locador', 'Locatario')),
+    tipo VARCHAR(10) NOT NULL CHECK (tipo IN ('Locador', 'Locatario')),
     data_nascimento DATE NOT NULL CHECK (data_nascimento > DATE '1900-01-01'),
     sexo CHAR(1) NOT NULL CHECK (sexo IN ('M', 'F')),
     telefone CHAR(11) UNIQUE NOT NULL CHECK (char_length(telefone) BETWEEN 10 AND 11),
@@ -43,7 +43,6 @@ CREATE TABLE Usuario (
     senha VARCHAR(256) NOT NULL,
     FOREIGN KEY (conta_bancaria) REFERENCES ContaBancaria(numero_conta),
     FOREIGN KEY (id_localizacao) REFERENCES Localizacao(id_localizacao),
-    FOREIGN KEY (id_locador) REFERENCES Localizacao(id_locador),
     UNIQUE (nome, sobrenome)
 );
 

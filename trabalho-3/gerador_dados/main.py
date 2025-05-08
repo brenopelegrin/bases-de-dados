@@ -144,7 +144,7 @@ def generate_reserva(usuarios, propriedades):
     return [
         {
             "CPF_locatario": usuarios[i % len(usuarios)]["CPF"],
-            "CPF_locador": usuarios[i+1 % len(usuarios)]["CPF"],
+            "CPF_locador": usuarios[(i+1) % len(usuarios)]["CPF"],
             "id_propriedade": i + 1,
             "data_reserva": (horario_entrada := random_timestamp(offset_days=0, hour=0, minute= 0)).strftime("%Y-%m-%d %H:%M:%S"),
             "data_checkin": (horario_checkin := horario_entrada + random_timedelta()).strftime("%Y-%m-%d %H:%M:%S"),
