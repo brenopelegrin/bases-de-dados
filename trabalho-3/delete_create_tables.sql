@@ -33,6 +33,8 @@ CREATE TABLE Usuario (
     CPF CHAR(11) PRIMARY KEY,
     conta_bancaria VARCHAR(12) NOT NULL,
     id_localizacao INT NOT NULL,
+    locador BOOLEAN NOT NULL,
+    locatario BOOLEAN NOT NULL,
     nome VARCHAR(20) NOT NULL CHECK (char_length(nome) BETWEEN 2 AND 20),
     sobrenome VARCHAR(80) NOT NULL CHECK (char_length(sobrenome) BETWEEN 2 AND 80),
     data_nascimento DATE NOT NULL CHECK (data_nascimento > DATE '1900-01-01'),
@@ -108,6 +110,7 @@ CREATE TABLE Reserva (
     /* Certo - restrições */
     id_reserva SERIAL PRIMARY KEY,
     CPF_locatario CHAR(11),
+    CPF_locador CHAR(11),
     id_propriedade INT,
     data_reserva TIMESTAMP NOT NULL,
     data_checkin TIMESTAMP,

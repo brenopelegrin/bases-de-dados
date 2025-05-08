@@ -1,8 +1,6 @@
 from faker import Faker
 import random
 import os
-import json
-import shutil
 from datetime import datetime, timedelta
 
 fake = Faker("pt_BR")
@@ -63,7 +61,6 @@ def generate_usuario(contas, localizacoes):
         
     nomes, sobrenomes = list(nomes), list(sobrenomes)
     
-    tipo = ['Locador', 'Locatario']
         
     return [
         {
@@ -72,7 +69,8 @@ def generate_usuario(contas, localizacoes):
             "id_localizacao": i + 1,
             "nome": nomes[i],
             "sobrenome": sobrenomes[i],
-            "tipo": tipo[i % 2],
+            "locador" : random.choice([True, False]),
+            "locatario" : random.choice([True, False]),
             "data_nascimento": str(fake.date_of_birth(minimum_age=18, maximum_age=80)),
             "sexo": random.choice(["M", "F"]),
             "telefone": f"9{random.randint(100000000, 999999999)}",
