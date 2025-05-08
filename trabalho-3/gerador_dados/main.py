@@ -62,6 +62,8 @@ def generate_usuario(contas, localizacoes):
         sobrenomes.add(fake.last_name())
         
     nomes, sobrenomes = list(nomes), list(sobrenomes)
+    
+    tipo = ['Locador', 'Locatario']
         
     return [
         {
@@ -70,6 +72,7 @@ def generate_usuario(contas, localizacoes):
             "id_localizacao": i + 1,
             "nome": nomes[i],
             "sobrenome": sobrenomes[i],
+            "tipo": tipo[i % 2],
             "data_nascimento": str(fake.date_of_birth(minimum_age=18, maximum_age=80)),
             "sexo": random.choice(["M", "F"]),
             "telefone": f"9{random.randint(100000000, 999999999)}",
@@ -141,6 +144,7 @@ def generate_reserva(usuarios, propriedades):
     return [
         {
             "CPF_locatario": usuarios[i % len(usuarios)]["CPF"],
+            "CPF_locador": usuarios[i+1 % len(usuarios)]["CPF"],
             "id_propriedade": i + 1,
             "data_reserva": (horario_entrada := random_timestamp(offset_days=0, hour=0, minute= 0)).strftime("%Y-%m-%d %H:%M:%S"),
             "data_checkin": (horario_checkin := horario_entrada + random_timedelta()).strftime("%Y-%m-%d %H:%M:%S"),
