@@ -8,7 +8,7 @@ CACHEDIR.TAG
 
 # C extensions
 *.so
-
+data/
 # Distribution / packaging
 .Python
 build/
