@@ -80,14 +80,16 @@ def generate_usuario(contas, localizacoes):
         for i in range(NUMBER_OF_REPETITIONS)
     ]
 
-def generate_propriedade():
+def generate_propriedade(usuarios):
     lista = []
+    locadores = [x for x in usuarios if x["locador"]]
     for k in range(NUMBER_OF_REPETITIONS):
         horario_entrada = random_timestamp(offset_days=0, hour=0, minute= 0)
         dicionario = {
             "id_localizacao": k + 1,
             "nome": fake.company(),
             "endereco": fake.street_address(),
+            "CPF_locador": random.choice(locadores[:3])["CPF"],
             "tipo": random.choice(["casa inteira", "quarto individual", "quarto compartilhado"]),
             "numero_quartos": random.randint(1, 5),
             "numero_banheiros": random.randint(1, 3),
@@ -143,7 +145,7 @@ def generate_reserva(usuarios, propriedades):
         {
             "CPF_locatario": usuarios[i % len(usuarios)]["CPF"],
             "CPF_locador": usuarios[(i+1) % len(usuarios)]["CPF"],
-            "id_propriedade": i + 1,
+            "id_propriedade": random.randint(1, NUMBER_OF_REPETITIONS//2),
             "data_reserva": (horario_entrada := random_timestamp(offset_days=0, hour=0, minute= 0)).strftime("%Y-%m-%d %H:%M:%S"),
             "data_checkin": (horario_checkin := horario_entrada + random_timedelta()).strftime("%Y-%m-%d %H:%M:%S"),
             "data_checkout": (horario_checkin + random_timedelta()).strftime("%Y-%m-%d %H:%M:%S"),
@@ -153,7 +155,7 @@ def generate_reserva(usuarios, propriedades):
             "preco_total_imposto_limpeza": random.randint(50, 1000) * 100,
             "status": fake.boolean()
         }
-        for i in range(NUMBER_OF_REPETITIONS)
+        for i in range(NUMBER_OF_REPETITIONS*100)
     ]
 
 def generate_ponto_de_interesse(localizacoes):
@@ -189,7 +191,7 @@ def main():
     contas = generate_conta_bancaria()
     localizacoes = generate_localizacao()
     usuarios = generate_usuario(contas, localizacoes)
-    propriedades = generate_propriedade()
+    propriedades = generate_propriedade(usuarios)
     quartos = generate_quarto(propriedades)
     mensagens = generate_mensagem(usuarios)
     avaliacoes = generate_avaliacao(mensagens, propriedades)

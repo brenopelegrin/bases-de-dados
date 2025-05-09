@@ -52,6 +52,7 @@ CREATE TABLE Propriedade (
     /* Certo - restrições */
     id_propriedade SERIAL PRIMARY KEY,
     id_localizacao INT,
+    CPF_locador CHAR(11),
     nome VARCHAR(100) NOT NULL,
     endereco VARCHAR(512),
     tipo VARCHAR(30) CHECK (tipo IN ('casa inteira', 'quarto individual', 'quarto compartilhado')),
@@ -65,7 +66,8 @@ CREATE TABLE Propriedade (
     horario_entrada TIMESTAMP,
     horario_saida TIMESTAMP CHECK(horario_saida > horario_entrada),
     datas_disponiveis TIMESTAMP ARRAY,
-    FOREIGN KEY (id_localizacao) REFERENCES Localizacao(id_localizacao)
+    FOREIGN KEY (id_localizacao) REFERENCES Localizacao(id_localizacao),
+     FOREIGN KEY (cpf_locador) REFERENCES Usuario(CPF)
 );
 
 CREATE TABLE Quarto (
