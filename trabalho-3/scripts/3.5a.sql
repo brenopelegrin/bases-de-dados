@@ -1,0 +1,1 @@
+select nome from usuario where (locador=True and locatario=True)    
