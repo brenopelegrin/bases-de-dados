@@ -9,16 +9,12 @@ DROP TABLE IF EXISTS Localizacao;
 DROP TABLE IF EXISTS ContaBancaria;
 
 CREATE TABLE ContaBancaria (
-    /* Certo - atributos */
-    /* Certo - restrições */
     numero_conta VARCHAR(12) PRIMARY KEY,
     agencia VARCHAR(12) NOT NULL,
     tipo_conta VARCHAR(10) NOT NULL CHECK (tipo_conta IN ('Corrente', 'Poupança'))
 );
 
 CREATE TABLE Localizacao (
-    /* Certo - atributos */
-    /* Certo - restrições */
     id_localizacao SERIAL PRIMARY KEY,
     cep CHAR(8) NOT NULL,
     cidade VARCHAR(60) NOT NULL,
@@ -28,8 +24,6 @@ CREATE TABLE Localizacao (
 );
 
 CREATE TABLE Usuario (
-    /* Certo - atributos */
-    /* Certo - restrições */
     CPF CHAR(11) PRIMARY KEY,
     conta_bancaria VARCHAR(12) NOT NULL,
     id_localizacao INT NOT NULL,
@@ -48,8 +42,6 @@ CREATE TABLE Usuario (
 );
 
 CREATE TABLE Propriedade (
-    /* Certo - atributos */
-    /* Certo - restrições */
     id_propriedade SERIAL PRIMARY KEY,
     id_localizacao INT,
     CPF_locador CHAR(11),
@@ -71,8 +63,6 @@ CREATE TABLE Propriedade (
 );
 
 CREATE TABLE Quarto (
-    /* Certo - atributos */
-    /* Certo - restrições */
     id_quarto SERIAL PRIMARY KEY,
     id_propriedade INT,
     numero_camas INT CHECK (numero_camas > 0),
@@ -82,8 +72,6 @@ CREATE TABLE Quarto (
 );
 
 CREATE TABLE Mensagem (
-    /* Certo - atributos */
-    /* Certo - restrições */
     id_mensagem SERIAL PRIMARY KEY,
     CPF_remetente CHAR(11),
     CPF_destinatario CHAR(11),
@@ -94,7 +82,6 @@ CREATE TABLE Mensagem (
 );
 
 CREATE TABLE Avaliacao (
-     /* Certo */
     id_avaliacao SERIAL PRIMARY KEY,
     id_mensagem INT,
     id_propriedade INT,
@@ -108,8 +95,6 @@ CREATE TABLE Avaliacao (
 );
 
 CREATE TABLE Reserva (
-    /* Certo - atributos */
-    /* Certo - restrições */
     id_reserva SERIAL PRIMARY KEY,
     CPF_locatario CHAR(11),
     CPF_locador CHAR(11),
@@ -127,8 +112,6 @@ CREATE TABLE Reserva (
 );
 
 CREATE TABLE PontoDeInteresse (
-    /* Certo - atributos */
-    /* Certo - restrições */
     id_ponto_interesse SERIAL PRIMARY KEY,
     id_localizacao INT,
     nome VARCHAR(100) NOT NULL,
