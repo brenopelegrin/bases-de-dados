@@ -2,10 +2,10 @@ select
   R.id_reserva, 
   R.CPF_locatario, 
   R.id_propriedade, 
-  R.data_checkout - R.data_checkin as dias_locados, 
+  EXTRACT(DAY from (R.data_checkout - R.data_checkin)) as dias_locados, 
   CONCAT(U_locatario.nome, ' ', U_locatario.sobrenome) as nome_hospede, 
   CONCAT(U_locador.nome, ' ', U_locador.sobrenome) as nome_proprietario,
-  (R.preco_total_estadia + R.preco_total_imposto_limpeza + imposto)/100 as valor_diaria
+  (R.preco_total_estadia + R.preco_total_imposto_limpeza + imposto)/(100*EXTRACT(DAY from (R.data_checkout - R.data_checkin))) as valor_diaria
 from Reserva as R
 join Propriedade as P
 on P.id_propriedade = R.id_propriedade
